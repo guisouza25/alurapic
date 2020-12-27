@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Photo } from '../photo/photo';
 import { PhotoService } from '../photo/photo.service';
-import { debounce } from '../../helpers/decorators/debounce'
+import { debounce } from '../../shared/decorators/debounce'
+import { UserService } from 'src/app/core/user/user.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'ap-photo-list',
@@ -20,7 +22,8 @@ export class PhotoListComponent implements OnInit {
 
 	constructor(
 		private activatedRoute: ActivatedRoute,
-		private photoService: PhotoService
+		private photoService: PhotoService,
+		private userService: UserService,
 		) {} //constructor apenas para injeção de dependência
 	
 	//troquei pelo resolver que resolve os dados que o componente depende antes de o componente ser carregado
@@ -43,11 +46,12 @@ export class PhotoListComponent implements OnInit {
 		const t1 = performance.now()
 		this.photoService
 			.getPhotosFromUserPaginated(this.userName, ++this.currentPage)
-			.subscribe(photos => {
-				this.filter = ''
-				this.photos = this.photos.concat(photos)
-				if(!photos.length) this.hasMore = false
-			})
+			.subscribe(
+				photos => {
+					this.filter = ''
+					this.photos = this.photos.concat(photos)
+					if(!photos.length) this.hasMore = false
+				})		
 		const t2 = performance.now()
 		console.log(t2-t1)
 	}

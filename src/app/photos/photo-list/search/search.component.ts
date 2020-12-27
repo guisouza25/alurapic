@@ -1,5 +1,4 @@
-import { TryCatchStmt } from '@angular/compiler';
-import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators'
 
@@ -7,7 +6,7 @@ import { debounceTime } from 'rxjs/operators'
 	selector: 'ap-search',
 	templateUrl: './search.component.html'
 })
-export class SearchComponent  {
+export class SearchComponent implements OnInit, OnDestroy {
 	
 	@Output() onTyping = new EventEmitter<string>()
 	@Input() value;
@@ -19,5 +18,8 @@ export class SearchComponent  {
 		.subscribe(filter => this.onTyping.emit(filter))
 	}
 
+	ngOnDestroy(): void {
+        this.debounce.unsubscribe();
+    }
 	
 }
