@@ -4,7 +4,7 @@ import { TokenService } from '../token/token.service';
 import { User } from './User';
 import * as jwt_decode from 'jwt-decode';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -15,12 +15,13 @@ export class UserService {
 	//subscribe ele guarda esse valor(null). Quando tem um subscribe tem acesso ao ultimo
 	//valor emitido. Entao quando o header e carregado tem acesso ao user
 	private userSubject = new BehaviorSubject<User>(null);
+	private user: User;
 	private userName: string;
 
     constructor(
 		private tokenService: TokenService,
-		private router: Router
-		) {
+		private router: Router) {
+
 		this.tokenService.hasToken() &&
 		this.decodeAndNotify()
 	}
@@ -28,7 +29,8 @@ export class UserService {
 	 decodeAndNotify() {
 		 const token = this.tokenService.getToken();
 		 const user = jwt_decode(token).user as User;
-		 this.userName = user.name;
+		 this.user = user
+		 this.userName = user.name
 		 this.userSubject.next(user)
 	 }
 	 
@@ -37,11 +39,9 @@ export class UserService {
 		this.decodeAndNotify();
     }
 
-	getUser() {
-		return this.userSubject.asObservable();
+	getUserAsObservable() {
+		return this.userSubject
 	}
-	
-
 
 	logout() {
 		this.tokenService.removeToken();
@@ -57,7 +57,11 @@ export class UserService {
 		return this.tokenService.hasToken();
 	}
 
-	getUsername() {
+	getUser(): User {
+		return this.user
+	}
+
+	getUserName(): string {
 		return this.userName
 	}
 }	

@@ -1,14 +1,14 @@
 <div class="mt-3 mb-3">
-    <form class="form-inline justify-content-center my-2 my-lg-0">
+    <form class="form-inline justify-content-center" id="form">
 		<!--fa fa-search - font awesome, mr-1 - boostrap-->
-		<i aria-hidden class="fa fa-search mr-1"></i>
+		<i aria-hidden="true" class="fa fa-search mr-1"></i>
 		<input
-			class="form-control mr-sm-2"
+			class="rounded"
             type="search"
             placeholder="search..."
 			autofocus
 			(keyup)="debounce.next($event.target.value)"
-			[value]='value'
+			[value]="value"
 			>
 			<!--bindind de eventos-->
 			

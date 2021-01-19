@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators'
-import { TokenService } from '../token/token.service';
 import { UserService } from '../user/user.service';
+import { environment } from '../../../environments/environment';
 
-const API = 'http://localhost:3000'
+const API = environment.apiUrl;
 
 //uma unica instancia para a aplicação. nao pertence a um módulo
 @Injectable({providedIn: 'root'}) 
@@ -16,6 +16,7 @@ export class AuthService {
 	) {}
 
   authenticate(userName: string, password: string) {
+	  
 	  return this.http
 		  .post(
 				API + '/user/login',
@@ -23,7 +24,7 @@ export class AuthService {
 				{ observe: 'response' } //ter acesso a tudo da resposta, inclusive cabecalho
 			)
 		  .pipe(tap(response => { //executado antes do subscribe
-				const token = response.headers.get('bearer-token')
+				const token = response.headers.get('Authorization').substring('Bearer'.length).trim();
 				this.userService.setToken(token)
 		  }))
   }

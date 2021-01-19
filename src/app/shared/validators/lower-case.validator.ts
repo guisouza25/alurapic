@@ -2,7 +2,7 @@ import { AbstractControl } from '@angular/forms';
 
 export class lowerCaseValidator {
 	
-	static lowercase() {
+	static lowerCase() {
 
 		return(control: AbstractControl) => {
 			//se possui conteudo e nao segue o padrão da expressao regular

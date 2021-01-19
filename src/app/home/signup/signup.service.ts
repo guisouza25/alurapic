@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
-const API_URL = "http://localhost:3000";
+const API = environment.apiUrl;
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class SignUpService {
 
     constructor(private http: HttpClient) {}
 
     checkUserNameTaken(userName: string) {
 
-        return this.http.get(API_URL + '/user/exists/' + userName);
+        return this.http.get(API + '/user/exists/' + userName);
 	}
 	
 	signup(newUser) {
-		return this.http.post(API_URL + '/user/signup', newUser)
+		return this.http.post(API + '/user/signup', newUser)
 	}
 }

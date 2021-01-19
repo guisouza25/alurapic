@@ -17,6 +17,7 @@ export class PhotoListResolver implements Resolve<Observable<Object>> {
 		const userName = route.params.userName
 
 		return this.service
-				.getPhotosFromUserPaginated(userName, 1)	
+				.getPhotosFromUserPaginated(userName, 1)
+				
 	}
 }

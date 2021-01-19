@@ -7,9 +7,10 @@ import { debounceTime } from 'rxjs/operators'
 	templateUrl: './search.component.html'
 })
 export class SearchComponent implements OnInit, OnDestroy {
+
 	
 	@Output() onTyping = new EventEmitter<string>()
-	@Input() value;
+	@Input() value: string
 	debounce: Subject<string> = new Subject<string>();
 	
 	ngOnInit(): void {

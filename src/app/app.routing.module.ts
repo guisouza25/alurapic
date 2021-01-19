@@ -1,39 +1,63 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuardUser } from './core/auth/auth.guard.user';
-import { AuthGuardLogin } from './core/auth/auth.guard.login';
+import { AuthGuard } from './core/auth/auth.guard';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
-import { LoginComponent } from './home/login/login.component';
-
+import { PhotoDetailComponent } from './photos/photo-detail/photo-detail.component';
 import { PhotoFormComponent } from './photos/photo-form/photo-form.component';
 import { PhotoListComponent } from './photos/photo-list/photo-list.component';
 import { PhotoListResolver } from './photos/photo-list/photo-list.resolver';
-import { SignUpComponent } from './home/signup/signup.component';
 
 const routes: Routes = [
-	{ 
-		path: '', 
-		component: LoginComponent,
-		canActivate: [AuthGuardLogin]
+	{
+		path: '',
+		pathMatch: 'full',
+		redirectTo: 'home'
 	},
 	{ 
-		path: 'signup', 
-		component: SignUpComponent,
+		path: 'home',
+		loadChildren: './home/home.module#HomeModule'
 	},
 	{ 
 		path: 'user/:userName',
 		component: PhotoListComponent,
 		resolve: {
 			photos: PhotoListResolver
+		},
+		data: {
+			title: 'Timeline'
 		}
 	},
-	{ path: 'p/add', component: PhotoFormComponent },
-	{ path: '**', component: NotFoundComponent }
+	{ 
+		path: 'p/add', 
+		component: PhotoFormComponent,
+		canActivate: [AuthGuard],
+		data: {
+			title: 'Photo upload'
+		} 
+	},
+	{ 
+		path: 'p/:photoId', 
+		component: PhotoDetailComponent,
+		data: {
+			title: 'Photo detail'
+		}
+	},
+	{	
+		path: 'not-found', 
+		component: NotFoundComponent,
+		data: {
+			title: 'Not found'
+		}
+	},
+	{	
+		path: '**', 
+		redirectTo: 'not-found'
+ 	}
 ]
 
 @NgModule({
 	imports: [
-		RouterModule.forRoot(routes)
+		RouterModule.forRoot(routes, {useHash: true})
 	],
 	exports: [
 		RouterModule //RouterModule vai ficar visivel a quem importar AppRoutingModule

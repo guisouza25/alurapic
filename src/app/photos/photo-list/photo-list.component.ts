@@ -3,8 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Photo } from '../photo/photo';
 import { PhotoService } from '../photo/photo.service';
 import { debounce } from '../../shared/decorators/debounce'
-import { UserService } from 'src/app/core/user/user.service';
-import { Subject } from 'rxjs';
+import { LoadingService } from 'src/app/shared/components/loading/loading.service';
+
 
 @Component({
   selector: 'ap-photo-list',
@@ -13,6 +13,7 @@ import { Subject } from 'rxjs';
 })
 export class PhotoListComponent implements OnInit {
 
+	
 	title = 'alurapic';
 	photos: Photo[] = [];
 	filter = '';
@@ -23,22 +24,26 @@ export class PhotoListComponent implements OnInit {
 	constructor(
 		private activatedRoute: ActivatedRoute,
 		private photoService: PhotoService,
-		private userService: UserService,
+		private loadingService: LoadingService
 		) {} //constructor apenas para injeção de dependência
 	
 	//troquei pelo resolver que resolve os dados que o componente depende antes de o componente ser carregado
 	//fiz isso para evitar que o 'Sorry, no photos found' apareca ao apertar f5
 	ngOnInit() {
+		this.loadingService.start()
+		//userName é o mesmo que está no path no modulo de rotas
 		//este data.photos é a propriedade photos que recebe o PhotoListResolver em 
 		//app.routing para o path 'user/:userName'
-		this.userName = this.activatedRoute.snapshot.params.userName
-		this.photos = this.activatedRoute.snapshot.data.photos
+
+		// this.userName = this.activatedRoute.snapshot.params.userName
+		// this.photos = this.activatedRoute.snapshot.data.photos
 		
-		// //userName é o mesmo que está no path no modulo de rotas
-		// const userName = this.activatedRoute.snapshot.params.userName
-		// this.photoService
-		// .getPhotosFromUser(userName)
-		// .subscribe(photos => this.photos = photos)
+		//para conseguir trocar entre rotas de usuarios
+		this.activatedRoute.params.subscribe(params => {
+			this.userName = params.userName
+			this.photos = this.activatedRoute.snapshot.data['photos']
+		})
+		
 	}		
 
 	@debounce(300)
@@ -48,10 +53,11 @@ export class PhotoListComponent implements OnInit {
 			.getPhotosFromUserPaginated(this.userName, ++this.currentPage)
 			.subscribe(
 				photos => {
+					console.log(photos)
 					this.filter = ''
 					this.photos = this.photos.concat(photos)
 					if(!photos.length) this.hasMore = false
-				})		
+				})	
 		const t2 = performance.now()
 		console.log(t2-t1)
 	}
@@ -60,4 +66,5 @@ export class PhotoListComponent implements OnInit {
 		let input: HTMLInputElement = document.querySelector('.rounded')
 		input.value = ''
 	}
+	
 }

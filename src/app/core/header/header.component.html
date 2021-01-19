@@ -1,30 +1,23 @@
-<!-- <header class="fixed-top">
-    <nav class="navbar navbar-light bg-white">
-        <a class="navbar-brand">ALURAPIC</a>
-        <div>
-            <i class="fa fa-user-circle"></i>
-            <a>Aqui deve entrar o username</a>
-        </div>
-    </nav>
-</header> -->
-
 <header class="fixed-top">
-	<nav class="navbar navbar navbar-dark bg-primary">
-		<a class="navbar-brand" href="#">ALURAPIC</a>
-		
+    <nav class="navbar navbar-dark bg-primary">
+        <a class="navbar-brand">ALURAPIC</a>
 		<!--faz o subscribe e pega o valor da inscrição no obervable user$-->
-		<div *ngIf="(user$ | async) as user; else login">
-			<i class="fa fa-user-circle fa-2x" style="vertical-align: sub"></i>
-			<a class="navbar-brand ml-2">{{ user?.email }}</a>
-			<a (click)="logout()" class="navbar-brand ml-2">Logout</a>
-		</div>
+        <div *ngIf="(user$ | async) as user; else login">
+            <i class="fa fa-user-circle mr-1"></i>
+            <a class="mr-1">{{ user.name}}</a>
+            <a (click)="logout()">(Logout)</a>
+        </div>
 
-		<ng-template #login>
+        <ng-template #login>
             <span class="navbar-text">
 				<!--usa o mesmo padrao do navigate - ['user', userName]-->
-				<a [routerLink]="['']">Please, login!</a>
+                <a [routerLink]="['']">Please, login!</a>
             </span>
-        </ng-template>
-		
-	  </nav>
+        </ng-template> 
+	</nav>
 </header>
+
+<div class="fixed-top">
+	<ap-loading></ap-loading>
+	<ap-alert></ap-alert>
+</div>

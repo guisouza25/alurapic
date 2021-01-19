@@ -1,0 +1,38 @@
+
+<div *ngIf="(comments$ | async) as comments">
+    <ul class="list-unstyled comment-list">
+        <li *ngFor="let comment of comments">
+			<a 
+				class="text-dark font-weight-bold mr-1" 
+				[routerLink]="['/user', comment.userName]">
+				{{ comment.userName }}
+            </a>
+            <em>
+                {{ comment.date }}
+            </em>
+			<p 
+				class="break-word mb-2">
+                {{ comment.text }}
+            </p>
+        </li>
+	</ul>
+</div>
+
+<div class="mt-4">
+	<form [formGroup]="commentsForm" (submit)="save()">
+		<div class="input-group">
+			<textarea
+				[placeholder]="placeholder"
+				class="form-control"
+				formControlName = "commentText">
+			</textarea>
+			<div class="input-group-append">
+				<button [disabled]="commentsForm.invalid" class="btn btn-primary pull-left">Publish</button>
+			</div>
+		</div>
+		<ap-vmessage
+			*ngIf="commentsForm.get('commentText').errors?.maxlength"
+			text="Comment must be less than 300 characters!">
+		</ap-vmessage>
+	</form>
+</div>

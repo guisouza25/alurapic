@@ -6,7 +6,8 @@ import { UserService } from '../user/user.service';
 
 @Component({
 	selector: 'ap-header',
-	templateUrl: './header.component.html'
+	templateUrl: './header.component.html',
+	styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
 	
@@ -16,10 +17,9 @@ export class HeaderComponent {
 
 	constructor(
 		private userService: UserService,
-		private router: Router
-		){
+		private router: Router) {
 		
-		this.user$ = userService.getUser()
+		this.user$ = userService.getUserAsObservable()
 		//this.user$.subscribe(user => this.user = user)
 	}
 

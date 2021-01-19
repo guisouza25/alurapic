@@ -6,6 +6,7 @@ import { PlatformDetectorService } from 'src/app/core/plataform-detector/platfor
 
 
 
+
 @Component({
 	selector: 'ap-login', //opcional pois sera utilizado apenas pelo sistema de rotas
 	templateUrl: './login.component.html'
@@ -13,9 +14,6 @@ import { PlatformDetectorService } from 'src/app/core/plataform-detector/platfor
 export class LoginComponent implements OnInit {
 
 	loginForm: FormGroup;
-	loginFail = false;
-	alertText = '';
-	type = '';
 
 	//ElementRef wrapper do elemento do dom
 	@ViewChild('userNameInput') userNameInput: ElementRef<HTMLInputElement>;
@@ -24,7 +22,7 @@ export class LoginComponent implements OnInit {
 		private formBuilder: FormBuilder,
 		private authService: AuthService,
 		private router: Router,
-		private plataformDetectorService: PlatformDetectorService
+		private plataformDetectorService: PlatformDetectorService,
 		) {}
 
 	ngOnInit(): void {
@@ -32,7 +30,8 @@ export class LoginComponent implements OnInit {
 			userName: ['', Validators.required],
 			password: ['', Validators.required]
 		})
-		this.userNameInput.nativeElement.focus()
+		this.plataformDetectorService.isPlatformBrowser() && 
+		this.userNameInput.nativeElement.focus();
 	}
 
 	login() {
@@ -46,12 +45,6 @@ export class LoginComponent implements OnInit {
 				err => {
 					this.loginForm.reset()
 					this.plataformDetectorService.isPlatformBrowser() && this.userNameInput.nativeElement.focus();
-					this.alertText = 'Invalid login or username! Try again.'
-					this.type = 'danger'
-					this.loginFail = true;
-					setTimeout(() =>{
-						this.loginFail = false;
-					}, 4000)
 					console.log(err)
 				} 	
 			);

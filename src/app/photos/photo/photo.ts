@@ -7,6 +7,6 @@ export interface Photo { //interface que define a estrutura do objeto photo
 	allowComments: boolean;
 	likes: number;
 	comments: number;
-	UserId: number;
+	userId: number;
 
 }
