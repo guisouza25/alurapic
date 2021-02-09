@@ -1,0 +1,14 @@
+.group {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-direction: column;
+	background-color: #ffffff;
+	width: 100%;
+	padding: 1.3rem 0;
+
+}
+
+.link-blue {
+	font-weight: 600;
+}

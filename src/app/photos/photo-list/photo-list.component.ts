@@ -24,13 +24,11 @@ export class PhotoListComponent implements OnInit {
 	constructor(
 		private activatedRoute: ActivatedRoute,
 		private photoService: PhotoService,
-		private loadingService: LoadingService
 		) {} //constructor apenas para injeção de dependência
 	
 	//troquei pelo resolver que resolve os dados que o componente depende antes de o componente ser carregado
 	//fiz isso para evitar que o 'Sorry, no photos found' apareca ao apertar f5
 	ngOnInit() {
-		this.loadingService.start()
 		//userName é o mesmo que está no path no modulo de rotas
 		//este data.photos é a propriedade photos que recebe o PhotoListResolver em 
 		//app.routing para o path 'user/:userName'
@@ -40,7 +38,7 @@ export class PhotoListComponent implements OnInit {
 		
 		//para conseguir trocar entre rotas de usuarios
 		this.activatedRoute.params.subscribe(params => {
-			this.userName = params.userName
+			this.userName = params.userName		//propriedade criada dinamicamente poderia ser (data.photos)
 			this.photos = this.activatedRoute.snapshot.data['photos']
 		})
 		

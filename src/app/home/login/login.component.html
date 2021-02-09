@@ -31,7 +31,14 @@
     <button [disabled]="loginForm.invalid" type="submit" class="btn btn-primary btn-block">
         login
     </button>
-
 </form>
 
-<p>Not a user?<a [routerLink]="['signup']"> Register now</a></p>
+<div class="group">
+	<p class="already-user">
+		Not a user? 
+		<a class="link-blue" [routerLink]="['signup']">
+			Register now!
+		</a>
+	</p>
+</div>
+

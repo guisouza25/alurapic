@@ -21,12 +21,14 @@
     "@angular/platform-browser-dynamic": "^6.0.3",
     "@angular/router": "^6.0.3",
     "@rxweb/reactive-form-validators": "^2.1.2",
+    "@types/stacktrace-js": "^2.0.3",
     "bootstrap": "^4.1.1",
     "bootswatch": "^4.5.3",
     "core-js": "^2.5.4",
     "font-awesome": "^4.7.0",
     "jwt-decode": "^2.2.0",
     "rxjs": "^6.0.0",
+    "stacktrace-js": "^2.0.2",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {

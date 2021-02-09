@@ -1,3 +1,31 @@
-.navbar {
+/* .navbar {
 	padding: 10px 50px 10px 50px;
+} */
+
+.fa.fa-bars {
+	border: 0.5px solid #000000;
+	border-radius: 4px;
+    padding: 5px 8px 5px 8px;
 }
+
+ul.menu-list li {
+	margin: 15px;
+}
+
+ul.menu-list li a{
+	
+	border-radius: 4px;
+	border: 0.5px solid #000000;
+	display: block;
+	color: #000;
+	text-align: center;
+    padding: 5px 0px 5px 0px;
+	text-decoration: none;
+}
+
+.navbar-text a {
+	text-decoration: none;
+	color: rgb(39, 39, 39);
+}
+
+

@@ -69,10 +69,23 @@
 			*ngIf="signupForm.get('password').errors?.maxlength"
 			text="Maximum lenth must be 14">
 		</ap-vmessage>
+
+		<!-- validação crossfield-->
+		<ap-vmessage 
+			*ngIf="signupForm.errors?.userNamePassword"
+			text="Password and Username must not be equal">
+		</ap-vmessage>
 	</div>
 
 	<!-- se tem validação assincrona pendente-->
-    <button [disabled]="signupForm.invalid || signupForm.pending" class="btn btn-primary btn-block">Register</button>
-
-    <p>Already a user?<a [routerLink]="['']">Sign In!</a></p>
+   <button [disabled]="signupForm.invalid || signupForm.pending" class="btn btn-primary btn-block">Register</button>
 </form>
+
+<div class="group">
+	 <p class="already-user">
+		 Already a user? 
+		 <a class="link-blue" [routerLink]="['']">
+			 Sign In!
+		 </a>
+	 </p>
+ </div>

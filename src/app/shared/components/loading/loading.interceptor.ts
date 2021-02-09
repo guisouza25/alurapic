@@ -20,7 +20,10 @@ export class LoadingInterceptor implements HttpInterceptor{
                 .handle(req)
                 .pipe(tap(event => {
                     if(event instanceof HttpResponse) {
-                        this.loadingService.stop();
+						this.loadingService.stop();
+						setTimeout(() => {
+							this.loadingService.clean()
+						}, 200)
                     } else {
                         this.loadingService.start();
                     }

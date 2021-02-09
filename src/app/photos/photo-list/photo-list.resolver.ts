@@ -18,6 +18,5 @@ export class PhotoListResolver implements Resolve<Observable<Object>> {
 
 		return this.service
 				.getPhotosFromUserPaginated(userName, 1)
-				
 	}
 }
