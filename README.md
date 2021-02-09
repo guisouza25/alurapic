@@ -10,7 +10,7 @@ Para executar a aplicação basta rodar os comandos `npm install` e `ng serve` e
 
 ## API
 
-A aplicação deve ser executada juntamente com a API.
+A aplicação consome <a href ="https://github.com/guisouza25/alurapic-api-java" >esta</a> API. Execute primeiro a API antes de iniciar esta aplicação.
 
 
 
