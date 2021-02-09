@@ -14,7 +14,7 @@ Acesse:
   
 Informando `flavio` para o login e `123` para a senha.
 
-## Como executar a aplicação
+## Como executar a aplicação localmente
 
 Para executar a aplicação basta rodar os comandos `npm install` e `ng serve` e acessar `http://localhost:4200/`
 
